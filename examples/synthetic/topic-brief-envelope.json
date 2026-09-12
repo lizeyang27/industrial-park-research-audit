@@ -1,0 +1,20 @@
+{
+  "schema_version": "0.1",
+  "brief_id": "TB-SYN-001",
+  "run_id": "RUN-SYN-PRIOR-001",
+  "task_envelope_id": "ENV-SYN-001",
+  "created_at": "2026-09-06T01:00:30Z",
+  "draft_seen": false,
+  "routing_source": "user_supplied_or_preapproved_context_only",
+  "research_question": "Under what fictional sample, mechanism, and decision conditions could a process observation support a broader conclusion?",
+  "scope_codes": [
+    "fully-synthetic",
+    "reasoning-audit"
+  ],
+  "known_boundaries": [
+    "No real organization, jurisdiction, policy, or market is represented.",
+    "The topic brief is a framing input and cannot establish article facts."
+  ],
+  "eligible_as_evidence": false,
+  "brief_hash": "6d7ac347310bd8d40f1a46e478ebdc11f46658387743426345648defd7cbd59e"
+}

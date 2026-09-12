@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/industry-research-prior-question-manifest-0.2.json",
+  "title": "Industry Research Prior Question Manifest",
+  "description": "A private, pre-draft, hash-bound set of review questions. Entries are prompts for discovery and never evidence.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "manifest_id",
+    "run_id",
+    "task_envelope_id",
+    "task_envelope_hash",
+    "knowledge_snapshot_hash",
+    "authorization_snapshot_hash",
+    "authorization_ref",
+    "selection_policy_version",
+    "created_at",
+    "draft_seen",
+    "questions",
+    "coverage_by_issue_family",
+    "truncation",
+    "character_budget",
+    "budget_closure_code",
+    "budget_issues",
+    "privacy",
+    "manifest_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "0.2"},
+    "manifest_id": {"type": "string", "pattern": "^PM-[A-F0-9]{20}$"},
+    "run_id": {"type": "string", "pattern": "^[A-Z][A-Z0-9-]{2,63}$"},
+    "task_envelope_id": {"type": "string", "pattern": "^[A-Z][A-Z0-9-]{2,63}$"},
+    "task_envelope_hash": {"$ref": "#/$defs/sha256"},
+    "knowledge_snapshot_hash": {"$ref": "#/$defs/sha256"},
+    "authorization_snapshot_hash": {"$ref": "#/$defs/sha256"},
+    "authorization_ref": {"type": "string", "pattern": "^[A-Z][A-Z0-9-]{2,127}$"},
+    "selection_policy_version": {"const": "metadata-scope-char-budget-v0.2"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "draft_seen": {"const": false},
+    "questions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/priorQuestion"}
+    },
+    "coverage_by_issue_family": {
+      "type": "object",
+      "additionalProperties": {"type": "integer", "minimum": 1}
+    },
+    "truncation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max_questions", "per_family_limit", "eligible_count", "selected_count", "omitted_count"],
+      "properties": {
+        "max_questions": {"type": "integer", "minimum": 1},
+        "per_family_limit": {"type": "integer", "minimum": 1},
+        "eligible_count": {"type": "integer", "minimum": 0},
+        "selected_count": {"type": "integer", "minimum": 0},
+        "omitted_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "character_budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metric",
+        "max_text_array_items",
+        "max_text_array_chars",
+        "max_question_chars",
+        "max_manifest_chars"
+      ],
+      "properties": {
+        "metric": {"const": "canonical-json-unicode-code-points-v1"},
+        "max_text_array_items": {"type": "integer", "minimum": 1, "maximum": 4},
+        "max_text_array_chars": {"type": "integer", "minimum": 1, "maximum": 512},
+        "max_question_chars": {"type": "integer", "minimum": 1, "maximum": 2048},
+        "max_manifest_chars": {"type": "integer", "minimum": 1, "maximum": 16384}
+      }
+    },
+    "budget_closure_code": {
+      "enum": ["PRIOR_BUDGET_WITHIN_LIMIT", "PRIOR_BUDGET_TRUNCATED_TO_LIMIT"]
+    },
+    "budget_issues": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code", "count"],
+        "properties": {
+          "code": {
+            "enum": [
+              "PRIOR_TEXT_ARRAY_ITEM_LIMIT_OMITTED",
+              "PRIOR_TEXT_ARRAY_CHAR_LIMIT_OMITTED",
+              "PRIOR_QUESTION_CHAR_LIMIT_OMITTED",
+              "PRIOR_MANIFEST_CHAR_LIMIT_OMITTED"
+            ]
+          },
+          "count": {"type": "integer", "minimum": 1}
+        }
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["private_review_only", "card_bodies_not_logged", "source_locations_omitted", "questions_are_not_evidence"],
+      "properties": {
+        "private_review_only": {"const": true},
+        "card_bodies_not_logged": {"const": true},
+        "source_locations_omitted": {"const": true},
+        "questions_are_not_evidence": {"const": true}
+      }
+    },
+    "manifest_hash": {"$ref": "#/$defs/sha256"}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "nonEmptyStringArray": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "priorQuestion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "prior_question_id",
+        "knowledge_card_id",
+        "issue_family",
+        "risk_type",
+        "atomic_question",
+        "applicability",
+        "exclusions",
+        "counterhypothesis_prompts",
+        "verification_action",
+        "recommended_channels",
+        "closure_condition",
+        "knowledge_role",
+        "eligible_as_evidence"
+      ],
+      "properties": {
+        "prior_question_id": {"type": "string", "pattern": "^PQ-[A-Z][A-Z0-9-]{2,63}$"},
+        "knowledge_card_id": {"type": "string", "pattern": "^[A-Z][A-Z0-9-]{2,63}$"},
+        "issue_family": {"type": "string", "minLength": 1},
+        "risk_type": {"type": "string", "minLength": 1},
+        "atomic_question": {"type": "string", "minLength": 1},
+        "applicability": {"$ref": "#/$defs/nonEmptyStringArray"},
+        "exclusions": {"$ref": "#/$defs/nonEmptyStringArray"},
+        "counterhypothesis_prompts": {"$ref": "#/$defs/nonEmptyStringArray"},
+        "verification_action": {"type": "string", "minLength": 1},
+        "recommended_channels": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"enum": ["deterministic_text", "document_set", "private_knowledge", "web", "expert", "context_or_human"]}
+        },
+        "closure_condition": {"type": "string", "minLength": 1},
+        "knowledge_role": {"const": "review_prompt"},
+        "eligible_as_evidence": {"const": false}
+      }
+    }
+  }
+}

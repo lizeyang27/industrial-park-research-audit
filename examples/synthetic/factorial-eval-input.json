@@ -1,0 +1,300 @@
+{
+  "schema_version": "0.1",
+  "fixture": "fully_synthetic",
+  "data_classification": "public_synthetic_no_private_content",
+  "protocol_id": "IRA-ABCDEF-V1.1",
+  "evaluation_id": "EVAL-SYNTHETIC-V11-001",
+  "metric_definitions": {
+    "r3_recall": {
+      "metric_class": "common_outcome",
+      "direction": "higher_is_better",
+      "range": {"minimum": 0, "maximum": 1},
+      "applicable_groups": ["C", "D", "E", "F"]
+    },
+    "false_positives": {
+      "metric_class": "common_outcome",
+      "direction": "lower_is_better",
+      "range": {"minimum": 0, "maximum": null},
+      "applicable_groups": ["C", "D", "E", "F"]
+    },
+    "source_role_accuracy": {
+      "metric_class": "group_process",
+      "direction": "higher_is_better",
+      "range": {"minimum": 0, "maximum": 1},
+      "applicable_groups": ["D", "F"]
+    },
+    "framework_structure_score": {
+      "metric_class": "group_process",
+      "direction": "higher_is_better",
+      "range": {"minimum": 0, "maximum": 1},
+      "applicable_groups": ["E", "F"]
+    }
+  },
+  "cases": [
+    {
+      "case_id": "SYN-FAC-01",
+      "groups": {
+        "C": {
+          "run_count": 1,
+          "artifact_hashes": {
+            "draft_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+            "source_pack_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+            "skill_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "execution_configuration_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+            "prior_manifest_hash": "5555555555555555555555555555555555555555555555555555555555555555",
+            "support_bundle_hash": null,
+            "framework_hash": null
+          },
+          "metrics": {
+            "r3_recall": 0.5,
+            "false_positives": 2,
+            "source_role_accuracy": null,
+            "framework_structure_score": null
+          },
+          "reported_operational_costs": {
+            "external_calls": 0,
+            "human_review_minutes": 10
+          },
+          "reported_token_usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200
+          }
+        },
+        "D": {
+          "run_count": 1,
+          "artifact_hashes": {
+            "draft_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+            "source_pack_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+            "skill_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "execution_configuration_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+            "prior_manifest_hash": "5555555555555555555555555555555555555555555555555555555555555555",
+            "support_bundle_hash": "6666666666666666666666666666666666666666666666666666666666666666",
+            "framework_hash": null
+          },
+          "metrics": {
+            "r3_recall": 0.75,
+            "false_positives": 1,
+            "source_role_accuracy": 0.8,
+            "framework_structure_score": null
+          },
+          "reported_token_usage": {
+            "input_tokens": 1250,
+            "output_tokens": 210,
+            "tool_tokens": 90
+          }
+        },
+        "E": {
+          "run_count": 1,
+          "artifact_hashes": {
+            "draft_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+            "source_pack_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+            "skill_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "execution_configuration_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+            "prior_manifest_hash": "5555555555555555555555555555555555555555555555555555555555555555",
+            "support_bundle_hash": null,
+            "framework_hash": "7777777777777777777777777777777777777777777777777777777777777777"
+          },
+          "metrics": {
+            "r3_recall": 0.7,
+            "false_positives": 1,
+            "source_role_accuracy": null,
+            "framework_structure_score": 0.75
+          },
+          "reported_token_usage": {
+            "input_tokens": 1400,
+            "output_tokens": 230
+          }
+        },
+        "F": {
+          "run_count": 1,
+          "artifact_hashes": {
+            "draft_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+            "source_pack_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+            "skill_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "execution_configuration_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+            "prior_manifest_hash": "5555555555555555555555555555555555555555555555555555555555555555",
+            "support_bundle_hash": "6666666666666666666666666666666666666666666666666666666666666666",
+            "framework_hash": "8888888888888888888888888888888888888888888888888888888888888888"
+          },
+          "metrics": {
+            "r3_recall": 0.9,
+            "false_positives": 1,
+            "source_role_accuracy": 0.9,
+            "framework_structure_score": 0.9
+          },
+          "reported_token_usage": {
+            "input_tokens": 1700,
+            "output_tokens": 240,
+            "tool_tokens": 95
+          }
+        }
+      }
+    },
+    {
+      "case_id": "SYN-FAC-02",
+      "groups": {
+        "C": {
+          "run_count": 1,
+          "artifact_hashes": {
+            "draft_sha256": "9999999999999999999999999999999999999999999999999999999999999999",
+            "source_pack_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "skill_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "execution_configuration_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+            "prior_manifest_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "support_bundle_hash": null,
+            "framework_hash": null
+          },
+          "metrics": {
+            "r3_recall": 0.25,
+            "false_positives": 1,
+            "source_role_accuracy": null,
+            "framework_structure_score": null
+          },
+          "reported_token_usage": {
+            "input_tokens": 900
+          }
+        },
+        "D": {
+          "run_count": 1,
+          "artifact_hashes": {
+            "draft_sha256": "9999999999999999999999999999999999999999999999999999999999999999",
+            "source_pack_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "skill_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "execution_configuration_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+            "prior_manifest_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "support_bundle_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "framework_hash": null
+          },
+          "metrics": {
+            "r3_recall": 0.5,
+            "false_positives": 1,
+            "source_role_accuracy": 0.75,
+            "framework_structure_score": null
+          },
+          "reported_token_usage": {
+            "input_tokens": 1120
+          }
+        },
+        "E": {
+          "run_count": 1,
+          "artifact_hashes": {
+            "draft_sha256": "9999999999999999999999999999999999999999999999999999999999999999",
+            "source_pack_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "skill_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "execution_configuration_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+            "prior_manifest_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "support_bundle_hash": null,
+            "framework_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+          },
+          "metrics": {
+            "r3_recall": 0.5,
+            "false_positives": 1,
+            "source_role_accuracy": null,
+            "framework_structure_score": 0.7
+          },
+          "reported_token_usage": {
+            "input_tokens": 1280
+          }
+        },
+        "F": {
+          "run_count": 1,
+          "artifact_hashes": {
+            "draft_sha256": "9999999999999999999999999999999999999999999999999999999999999999",
+            "source_pack_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "skill_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "execution_configuration_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+            "prior_manifest_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "support_bundle_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "framework_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+          },
+          "metrics": {
+            "r3_recall": 0.75,
+            "false_positives": 0,
+            "source_role_accuracy": 0.85,
+            "framework_structure_score": 0.85
+          },
+          "reported_token_usage": {
+            "input_tokens": 1540
+          }
+        }
+      }
+    },
+    {
+      "case_id": "SYN-FAC-03",
+      "groups": {
+        "C": {
+          "run_count": 1,
+          "artifact_hashes": {
+            "draft_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            "source_pack_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "skill_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "execution_configuration_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+            "prior_manifest_hash": "3333333333333333333333333333333333333333333333333333333333333333",
+            "support_bundle_hash": null,
+            "framework_hash": null
+          },
+          "metrics": {
+            "r3_recall": 0.8,
+            "false_positives": 0,
+            "source_role_accuracy": null,
+            "framework_structure_score": null
+          }
+        },
+        "D": {
+          "run_count": 1,
+          "artifact_hashes": {
+            "draft_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            "source_pack_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "skill_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "execution_configuration_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+            "prior_manifest_hash": "3333333333333333333333333333333333333333333333333333333333333333",
+            "support_bundle_hash": "4444444444444444444444444444444444444444444444444444444444444444",
+            "framework_hash": null
+          },
+          "metrics": {
+            "r3_recall": 0.8,
+            "false_positives": 0,
+            "source_role_accuracy": 0.7,
+            "framework_structure_score": null
+          }
+        },
+        "E": {
+          "run_count": 1,
+          "artifact_hashes": {
+            "draft_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            "source_pack_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "skill_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "execution_configuration_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+            "prior_manifest_hash": "3333333333333333333333333333333333333333333333333333333333333333",
+            "support_bundle_hash": null,
+            "framework_hash": "5555555555555555555555555555555555555555555555555555555555555555"
+          },
+          "metrics": {
+            "r3_recall": 0.8,
+            "false_positives": 0,
+            "source_role_accuracy": null,
+            "framework_structure_score": 0.8
+          }
+        },
+        "F": {
+          "run_count": 1,
+          "artifact_hashes": {
+            "draft_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            "source_pack_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "skill_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+            "execution_configuration_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+            "prior_manifest_hash": "3333333333333333333333333333333333333333333333333333333333333333",
+            "support_bundle_hash": "4444444444444444444444444444444444444444444444444444444444444444",
+            "framework_hash": "6666666666666666666666666666666666666666666666666666666666666666"
+          },
+          "metrics": {
+            "r3_recall": 0.8,
+            "false_positives": 0,
+            "source_role_accuracy": 0.7,
+            "framework_structure_score": 0.8
+          }
+        }
+      }
+    }
+  ]
+}

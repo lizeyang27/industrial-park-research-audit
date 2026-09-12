@@ -1,0 +1,2 @@
+# Optional runtime support for extracting text from ordinary, text-based PDFs.
+pypdf>=5,<7

@@ -1,0 +1,63 @@
+{
+  "schema_version": "0.2",
+  "fixture": "fully_synthetic",
+  "expected_minimum_issues": [
+    {
+      "category": "scope",
+      "risk_level": "R2",
+      "verification_level": "V1",
+      "signal": "small project pipeline is generalized to all firms and all industrial clusters"
+    },
+    {
+      "category": "evidence_consistency",
+      "risk_level": "R3",
+      "verification_level": "V1",
+      "signal": "three projects that entered fit-out are reversed into three projects that did not enter fit-out"
+    },
+    {
+      "category": "causality",
+      "risk_level": "R3",
+      "verification_level": "V3",
+      "signal": "rent relief is treated as the sole cause of signing and future cluster formation"
+    },
+    {
+      "category": "comparability",
+      "risk_level": "R2",
+      "verification_level": "V1",
+      "signal": "two parks are ranked using different business types, metrics, and time windows"
+    },
+    {
+      "category": "motive_attribution",
+      "risk_level": "R3",
+      "verification_level": "V2",
+      "signal": "delayed entry is used to accuse firms of seeking policy benefits"
+    },
+    {
+      "category": "forecast",
+      "risk_level": "R3",
+      "verification_level": "V3",
+      "signal": "a precise occupancy outcome is asserted without a model, horizon evidence, or assumptions"
+    },
+    {
+      "category": "policy",
+      "risk_level": "R3",
+      "verification_level": "V2",
+      "signal": "policy effects are asserted before the applicable policy text is obtained"
+    },
+    {
+      "category": "thesis_drift",
+      "risk_level": "R2",
+      "verification_level": "V1",
+      "signal": "the topic brief's multi-variable test is replaced by a deterministic single-cause thesis"
+    }
+  ],
+  "expected_reconstructed_thesis": {
+    "neutral_question": "Does rent relief improve only early conversion, or does it also improve production and long-term retention?",
+    "core_hypothesis": "Rent relief may improve early conversion, while long-term retention also depends on operating inputs, customer access, and labor availability.",
+    "required_falsifiers": [
+      "retention remains higher after incentives expire under comparable operating conditions",
+      "parks without incentives show equal or better conversion after controlling for firm stage",
+      "production, employment, and renewal fail to follow signed intentions"
+    ]
+  }
+}

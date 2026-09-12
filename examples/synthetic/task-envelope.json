@@ -1,0 +1,36 @@
+{
+  "schema_version": "0.1",
+  "envelope_id": "ENV-SYN-001",
+  "run_id": "RUN-SYN-PRIOR-001",
+  "created_at": "2026-09-06T09:00:00+08:00",
+  "mode": "reasoning-audit",
+  "domain_codes": ["synthetic-industry-research"],
+  "article_type": "synthetic-case-article",
+  "research_stage": "reasoning-audit",
+  "audience_codes": ["synthetic-professional-reader"],
+  "jurisdictions": ["fictional"],
+  "entity_types": ["research-draft"],
+  "as_of": "2026-09-06",
+  "available_material_roles": ["topic", "draft"],
+  "allowed_channels": ["private_knowledge", "deterministic_text", "document_set"],
+  "field_provenance": {
+    "mode": "user_supplied",
+    "domain_codes": "topic_brief",
+    "article_type": "topic_brief",
+    "research_stage": "user_supplied",
+    "audience_codes": "topic_brief",
+    "jurisdictions": "topic_brief",
+    "entity_types": "topic_brief",
+    "as_of": "user_supplied",
+    "available_material_roles": "file_metadata",
+    "allowed_channels": "user_supplied"
+  },
+  "draft_visibility_at_start": "not_seen",
+  "precommit_possible": true,
+  "authorization_context": {
+    "authorization_id": "AUTH-SYN-001",
+    "purpose": "local-review",
+    "processor_class": "model_context_abstract",
+    "output_audience": "private_review"
+  }
+}

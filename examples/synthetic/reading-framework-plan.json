@@ -1,0 +1,95 @@
+{
+  "schema_version": "0.1",
+  "plan_id": "RFP-SYN-E-001",
+  "run_id": "RUN-SYN-PRIOR-001",
+  "task_envelope_id": "ENV-SYN-001",
+  "topic_brief_id": "TB-SYN-001",
+  "topic_brief_hash": "6d7ac347310bd8d40f1a46e478ebdc11f46658387743426345648defd7cbd59e",
+  "created_at": "2026-09-06T01:02:00Z",
+  "draft_seen": false,
+  "input_roles": [
+    "task_envelope",
+    "topic_brief",
+    "prior_question_manifest"
+  ],
+  "research_question": "Which scope, mechanism, and decision conditions would be needed before a fictional process observation could support a broader conclusion?",
+  "nodes": [
+    {
+      "node_id": "RFN-SYN-BASELINE-001",
+      "node_type": "baseline_hypothesis",
+      "prompt": "Begin with the neutral possibility that the observed process is limited to the measured sample and period.",
+      "prior_question_refs": [],
+      "support_item_refs": []
+    },
+    {
+      "node_id": "RFN-SYN-BOUNDARY-001",
+      "node_type": "definition_boundary",
+      "prompt": "Separate sample coverage, population coverage, process output, and final outcome before comparing claims.",
+      "prior_question_refs": [],
+      "support_item_refs": []
+    },
+    {
+      "node_id": "RFN-SYN-VARIABLE-001",
+      "node_type": "variable",
+      "prompt": "Identify the denominator, observation period, comparison baseline, process measure, and outcome measure.",
+      "prior_question_refs": [],
+      "support_item_refs": []
+    },
+    {
+      "node_id": "RFN-SYN-ACTOR-001",
+      "node_type": "actor_decision",
+      "prompt": "Identify who controls implementation, who bears failure cost, and who decides whether a result may be generalized.",
+      "prior_question_refs": [],
+      "support_item_refs": []
+    },
+    {
+      "node_id": "RFN-SYN-MECHANISM-001",
+      "node_type": "mechanism_chain",
+      "prompt": "Test every link from the proposed intervention to process change and then to the asserted outcome.",
+      "prior_question_refs": [],
+      "support_item_refs": []
+    },
+    {
+      "node_id": "RFN-SYN-ALTERNATIVE-001",
+      "node_type": "alternative_hypothesis",
+      "prompt": "Consider selection, seasonality, concurrent changes, and measurement changes as alternative explanations.",
+      "prior_question_refs": [],
+      "support_item_refs": []
+    },
+    {
+      "node_id": "RFN-SYN-EVIDENCE-001",
+      "node_type": "expected_evidence",
+      "prompt": "Require a defined population, reproducible numerator and denominator, comparable baseline, and outcome evidence appropriate to the asserted scope.",
+      "prior_question_refs": [],
+      "support_item_refs": []
+    },
+    {
+      "node_id": "RFN-SYN-FALSIFIER-001",
+      "node_type": "falsifier",
+      "prompt": "Look for an excluded subgroup or a comparable period in which the asserted relationship does not hold.",
+      "prior_question_refs": [],
+      "support_item_refs": []
+    },
+    {
+      "node_id": "RFN-SYN-MUSTCHECK-001",
+      "node_type": "must_check",
+      "prompt": "Before accepting any broad quantifier, check whether the observed sample covers the asserted population.",
+      "prior_question_refs": [
+        "PQ-KC-SYN-HEUR-001"
+      ],
+      "support_item_refs": []
+    },
+    {
+      "node_id": "RFN-SYN-BLINDSPOT-001",
+      "node_type": "blind_spot",
+      "prompt": "This framework may miss domain-specific constraints not represented in the pre-draft inputs; record valid findings outside the frame.",
+      "prior_question_refs": [],
+      "support_item_refs": []
+    }
+  ],
+  "framework_limits": [
+    "The framework is a discovery aid and cannot establish facts about a draft.",
+    "The fixture is fully synthetic and must not be generalized to a real organization or market."
+  ],
+  "eligible_as_evidence": false
+}

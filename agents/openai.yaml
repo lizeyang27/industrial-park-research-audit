@@ -1,0 +1,6 @@
+interface:
+  display_name: "产业园区研究审计"
+  short_description: "从园区研究命题到分级核验、经验溯源与人工关闭的可审计工作流"
+  default_prompt: "Use $industry-research-audit to reconstruct the decision-oriented thesis of this industrial-park draft, then audit its claims, evidence, and R/V risks."
+policy:
+  allow_implicit_invocation: true

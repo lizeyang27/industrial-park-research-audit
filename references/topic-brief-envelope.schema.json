@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/industry-research-topic-brief-envelope-0.1.json",
+  "title": "Industry Research Topic Brief Envelope",
+  "description": "A small, hash-bound topic brief recording the declared research question and scope before the prior manifest and reading framework.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "brief_id",
+    "run_id",
+    "task_envelope_id",
+    "created_at",
+    "draft_seen",
+    "routing_source",
+    "research_question",
+    "scope_codes",
+    "known_boundaries",
+    "eligible_as_evidence",
+    "brief_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "0.1"},
+    "brief_id": {"type": "string", "pattern": "^TB-[A-Z0-9-]{3,64}$"},
+    "run_id": {"type": "string", "pattern": "^[A-Z][A-Z0-9-]{2,63}$"},
+    "task_envelope_id": {"type": "string", "pattern": "^[A-Z][A-Z0-9-]{2,63}$"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "draft_seen": {"const": false},
+    "routing_source": {"const": "user_supplied_or_preapproved_context_only"},
+    "research_question": {"type": "string", "minLength": 1, "maxLength": 1024},
+    "scope_codes": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 12,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1, "maxLength": 128}
+    },
+    "known_boundaries": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 12,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1, "maxLength": 512}
+    },
+    "eligible_as_evidence": {"const": false},
+    "brief_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

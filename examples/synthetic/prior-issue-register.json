@@ -1,0 +1,21 @@
+{
+  "schema_version": "0.1",
+  "run_id": "RUN-SYN-PRIOR-001",
+  "issues": [
+    {
+      "issue_id": "ISSUE-SYN-001",
+      "first_observed_at": "2026-09-06T01:03:00Z",
+      "discovery_origin": {
+        "kind": "prior_knowledge",
+        "prior_question_id": "PQ-KC-SYN-HEUR-001"
+      }
+    },
+    {
+      "issue_id": "ISSUE-SYN-002",
+      "first_observed_at": "2026-09-06T01:04:00Z",
+      "discovery_origin": {
+        "kind": "draft_text"
+      }
+    }
+  ]
+}

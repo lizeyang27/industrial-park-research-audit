@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/industry-research-reading-framework-plan-0.1.json",
+  "title": "Industry Research Reading Framework Plan",
+  "description": "A semantic plan authored before the draft is visible. It organizes prior questions; it is not evidence or a verdict on a draft.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "plan_id",
+    "run_id",
+    "task_envelope_id",
+    "topic_brief_id",
+    "topic_brief_hash",
+    "created_at",
+    "draft_seen",
+    "input_roles",
+    "research_question",
+    "nodes",
+    "framework_limits",
+    "eligible_as_evidence"
+  ],
+  "properties": {
+    "schema_version": {"const": "0.1"},
+    "plan_id": {"type": "string", "pattern": "^RFP-[A-Z0-9-]{3,64}$"},
+    "run_id": {"type": "string", "pattern": "^[A-Z][A-Z0-9-]{2,63}$"},
+    "task_envelope_id": {"type": "string", "pattern": "^[A-Z][A-Z0-9-]{2,63}$"},
+    "topic_brief_id": {"type": "string", "pattern": "^TB-[A-Z0-9-]{3,64}$"},
+    "topic_brief_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "draft_seen": {"const": false},
+    "input_roles": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "task_envelope",
+          "topic_brief",
+          "prior_question_manifest",
+          "experience_support_bundle"
+        ]
+      }
+    },
+    "research_question": {"type": "string", "minLength": 1, "maxLength": 1024},
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 96,
+      "items": {"$ref": "#/$defs/node"}
+    },
+    "framework_limits": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 12,
+      "items": {"type": "string", "minLength": 1, "maxLength": 512}
+    },
+    "eligible_as_evidence": {"const": false}
+  },
+  "$defs": {
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "node_id",
+        "node_type",
+        "prompt",
+        "prior_question_refs",
+        "support_item_refs"
+      ],
+      "properties": {
+        "node_id": {"type": "string", "pattern": "^RFN-[A-Z0-9-]{3,64}$"},
+        "node_type": {
+          "enum": [
+            "baseline_hypothesis",
+            "definition_boundary",
+            "variable",
+            "actor_decision",
+            "mechanism_chain",
+            "alternative_hypothesis",
+            "expected_evidence",
+            "falsifier",
+            "must_check",
+            "blind_spot"
+          ]
+        },
+        "prompt": {"type": "string", "minLength": 1, "maxLength": 2048},
+        "prior_question_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^PQ-[A-Z][A-Z0-9-]{2,63}$"}
+        },
+        "support_item_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^ESI-[A-F0-9]{20}$"}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/industry-research-knowledge-card-0.2.json",
+  "title": "Industry Research Knowledge Card",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "card_id",
+    "card_type",
+    "title",
+    "tags",
+    "content",
+    "provenance",
+    "epistemic",
+    "scope",
+    "temporal",
+    "rights_and_access",
+    "lifecycle"
+  ],
+  "properties": {
+    "schema_version": {"const": "0.2"},
+    "card_id": {"type": "string", "pattern": "^[A-Z][A-Z0-9-]{2,63}$"},
+    "card_type": {"enum": ["fact_evidence", "expert_heuristic", "control"]},
+    "title": {"type": "string", "minLength": 1},
+    "tags": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claim_or_guidance", "rationale", "recommended_action"],
+      "properties": {
+        "claim_or_guidance": {"type": "string", "minLength": 1},
+        "rationale": {"type": "string", "minLength": 1},
+        "recommended_action": {"type": "string", "minLength": 1}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_ids", "origin_type", "locators", "transformation", "independent_source_ids"],
+      "properties": {
+        "source_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "origin_type": {
+          "enum": ["public_authority", "public_corporate", "public_research", "meeting_transcript", "reviewer_comment", "analysis", "synthetic"]
+        },
+        "locators": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "transformation": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "independent_source_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "content_hash": {"type": ["string", "null"]}
+      }
+    },
+    "epistemic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "fact_inference_boundary",
+        "confidence",
+        "assumptions",
+        "limitations",
+        "counterevidence_refs",
+        "conditions_where_false",
+        "falsification_test"
+      ],
+      "properties": {
+        "status": {"enum": ["reported", "verified", "corroborated", "disputed"]},
+        "fact_inference_boundary": {"enum": ["fact", "calculation", "inference", "opinion", "prediction", "reported_statement"]},
+        "confidence": {"enum": ["low", "medium", "high"]},
+        "assumptions": {"type": "array", "items": {"type": "string"}},
+        "limitations": {"type": "array", "items": {"type": "string"}},
+        "counterevidence_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "conditions_where_false": {"type": "array", "items": {"type": "string"}},
+        "falsification_test": {"type": "string", "minLength": 1}
+      }
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["domains", "jurisdictions", "entity_types", "task_stages", "applies_when", "does_not_apply_when"],
+      "properties": {
+        "domains": {"type": "array", "items": {"type": "string"}},
+        "jurisdictions": {"type": "array", "items": {"type": "string"}},
+        "entity_types": {"type": "array", "items": {"type": "string"}},
+        "task_stages": {"type": "array", "items": {"type": "string"}},
+        "applies_when": {"type": "array", "items": {"type": "string"}},
+        "does_not_apply_when": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "temporal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["as_of", "last_verified_at", "valid_until", "volatility", "requires_live_verification"],
+      "properties": {
+        "as_of": {"type": ["string", "null"], "format": "date"},
+        "last_verified_at": {"type": ["string", "null"], "format": "date"},
+        "valid_until": {"type": ["string", "null"], "format": "date"},
+        "volatility": {"enum": ["static", "slow", "dynamic"]},
+        "requires_live_verification": {"type": "boolean"}
+      }
+    },
+    "rights_and_access": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sensitivity", "rights_basis", "authorization_id", "allowed_uses", "verbatim_quote_allowed", "export_allowed"],
+      "properties": {
+        "sensitivity": {"enum": ["public", "restricted", "private"]},
+        "rights_basis": {"enum": ["original_synthetic", "public_license", "user_authorized", "unknown"]},
+        "authorization_id": {"type": ["string", "null"]},
+        "allowed_uses": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "verbatim_quote_allowed": {"type": "boolean"},
+        "export_allowed": {"type": "boolean"}
+      }
+    },
+    "lifecycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "owner", "review_by", "supersedes", "superseded_by"],
+      "properties": {
+        "status": {"enum": ["active", "stale", "expired", "disputed", "revoked", "quarantined"]},
+        "owner": {"type": "string", "minLength": 1},
+        "review_by": {"type": ["string", "null"], "format": "date"},
+        "supersedes": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "superseded_by": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"card_type": {"const": "fact_evidence"}}},
+      "then": {
+        "properties": {
+          "provenance": {
+            "properties": {
+              "source_ids": {"minItems": 1},
+              "locators": {"minItems": 1}
+            }
+          },
+          "temporal": {
+            "properties": {
+              "as_of": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "rights_and_access": {
+            "properties": {"sensitivity": {"enum": ["private", "restricted"]}},
+            "required": ["sensitivity"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "rights_and_access": {
+            "properties": {
+              "authorization_id": {"type": "string", "minLength": 1},
+              "verbatim_quote_allowed": {"const": false},
+              "export_allowed": {"const": false}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "provenance": {
+            "properties": {
+              "origin_type": {"const": "meeting_transcript"},
+              "independent_source_ids": {"maxItems": 0}
+            },
+            "required": ["origin_type", "independent_source_ids"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "epistemic": {
+            "properties": {
+              "status": {"const": "reported"},
+              "fact_inference_boundary": {"enum": ["reported_statement", "opinion"]}
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/private-source-manifest-record-0.1.json",
+  "title": "Private Source Manifest Record",
+  "description": "A local source-catalog record. The digest is declared by the catalog; consumers bind to the catalog snapshot and must not infer truth from provenance alone.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_id",
+    "source_type",
+    "relative_path",
+    "sha256",
+    "sensitivity",
+    "export_allowed"
+  ],
+  "properties": {
+    "source_id": {"type": "string", "pattern": "^[A-Z][A-Z0-9-]{2,127}$"},
+    "source_type": {"type": "string", "minLength": 1},
+    "relative_path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?![A-Za-z]:)(?![/\\\\])(?![A-Za-z][A-Za-z0-9+.-]*:)(?!\\.\\.(?:[/\\\\]|$))(?!.*[/\\\\]\\.\\.(?:[/\\\\]|$)).+$",
+      "description": "Workspace-root-relative locator used only when an explicit source root is supplied. It is omitted from generated support bundles and stdout."
+    },
+    "sha256": {"type": "string", "pattern": "^[A-Fa-f0-9]{64}$"},
+    "sensitivity": {"enum": ["public", "restricted", "private"]},
+    "export_allowed": {"type": "boolean"}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"sensitivity": {"enum": ["private", "restricted"]}},
+        "required": ["sensitivity"]
+      },
+      "then": {"properties": {"export_allowed": {"const": false}}}
+    }
+  ]
+}

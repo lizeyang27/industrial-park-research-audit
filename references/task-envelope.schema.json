@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/industry-research-task-envelope-0.1.json",
+  "title": "Industry Research Task Envelope",
+  "description": "Pre-draft routing metadata. Draft text, excerpts, paths, names, and source URLs are deliberately out of scope.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "envelope_id",
+    "run_id",
+    "created_at",
+    "mode",
+    "domain_codes",
+    "article_type",
+    "research_stage",
+    "audience_codes",
+    "jurisdictions",
+    "entity_types",
+    "as_of",
+    "available_material_roles",
+    "allowed_channels",
+    "field_provenance",
+    "draft_visibility_at_start",
+    "precommit_possible",
+    "authorization_context"
+  ],
+  "properties": {
+    "schema_version": {"const": "0.1"},
+    "envelope_id": {"type": "string", "pattern": "^[A-Z][A-Z0-9-]{2,63}$"},
+    "run_id": {"type": "string", "pattern": "^[A-Z][A-Z0-9-]{2,63}$"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "mode": {"enum": ["reasoning-audit", "thesis-reconstruction", "full-review"]},
+    "domain_codes": {"$ref": "#/$defs/nonEmptyStringArray"},
+    "article_type": {"type": "string", "minLength": 1},
+    "research_stage": {"type": "string", "minLength": 1},
+    "audience_codes": {"$ref": "#/$defs/nonEmptyStringArray"},
+    "jurisdictions": {"$ref": "#/$defs/nonEmptyStringArray"},
+    "entity_types": {"$ref": "#/$defs/nonEmptyStringArray"},
+    "as_of": {"type": "string", "format": "date"},
+    "available_material_roles": {"$ref": "#/$defs/nonEmptyStringArray"},
+    "allowed_channels": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": ["private_knowledge", "deterministic_text", "document_set", "web", "expert"]
+      },
+      "contains": {"const": "private_knowledge"}
+    },
+    "field_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "domain_codes",
+        "article_type",
+        "research_stage",
+        "audience_codes",
+        "jurisdictions",
+        "entity_types",
+        "as_of",
+        "available_material_roles",
+        "allowed_channels"
+      ],
+      "properties": {
+        "mode": {"$ref": "#/$defs/routingOrigin"},
+        "domain_codes": {"$ref": "#/$defs/routingOrigin"},
+        "article_type": {"$ref": "#/$defs/routingOrigin"},
+        "research_stage": {"$ref": "#/$defs/routingOrigin"},
+        "audience_codes": {"$ref": "#/$defs/routingOrigin"},
+        "jurisdictions": {"$ref": "#/$defs/routingOrigin"},
+        "entity_types": {"$ref": "#/$defs/routingOrigin"},
+        "as_of": {"$ref": "#/$defs/routingOrigin"},
+        "available_material_roles": {"$ref": "#/$defs/routingOrigin"},
+        "allowed_channels": {"$ref": "#/$defs/routingOrigin"}
+      }
+    },
+    "draft_visibility_at_start": {"enum": ["not_seen", "already_visible", "unknown"]},
+    "precommit_possible": {"type": "boolean"},
+    "authorization_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authorization_id", "purpose", "processor_class", "output_audience"],
+      "properties": {
+        "authorization_id": {"type": "string", "pattern": "^[A-Z][A-Z0-9-]{2,127}$"},
+        "purpose": {"type": "string", "minLength": 1},
+        "processor_class": {"enum": ["local_deterministic", "model_context_abstract"]},
+        "output_audience": {"const": "private_review"}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"precommit_possible": {"const": true}}, "required": ["precommit_possible"]},
+      "then": {
+        "properties": {
+          "draft_visibility_at_start": {"const": "not_seen"},
+          "field_provenance": {
+            "properties": {
+              "mode": {"$ref": "#/$defs/preDraftOrigin"},
+              "domain_codes": {"$ref": "#/$defs/preDraftOrigin"},
+              "article_type": {"$ref": "#/$defs/preDraftOrigin"},
+              "research_stage": {"$ref": "#/$defs/preDraftOrigin"},
+              "audience_codes": {"$ref": "#/$defs/preDraftOrigin"},
+              "jurisdictions": {"$ref": "#/$defs/preDraftOrigin"},
+              "entity_types": {"$ref": "#/$defs/preDraftOrigin"},
+              "as_of": {"$ref": "#/$defs/preDraftOrigin"},
+              "available_material_roles": {"$ref": "#/$defs/preDraftOrigin"},
+              "allowed_channels": {"$ref": "#/$defs/preDraftOrigin"}
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "nonEmptyStringArray": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "routingOrigin": {
+      "enum": ["user_supplied", "topic_brief", "file_metadata", "previously_approved_context", "draft_text"]
+    },
+    "preDraftOrigin": {
+      "enum": ["user_supplied", "topic_brief", "file_metadata", "previously_approved_context"]
+    }
+  }
+}
