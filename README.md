@@ -2,7 +2,7 @@
 
 一个以产业园区为首个垂直场景、面向中文产业研究稿的 Codex Skill。它把文章拆成可验证的主张，检查证据、范围、比较和因果关系，并从选题或传播稿中还原买方/决策导向的行业研究命题。它还把“潜在后果”和“验证难度”分开分级，让用户看到继续核验的边际成本后再决定是否深入。
 
-当前产品版本：`v1.1.0`。这是本地、人机协同的公开候选版本；版本记录见 [CHANGELOG.md](CHANGELOG.md)，发布、更新与回滚规则见 [docs/release-and-update.md](docs/release-and-update.md)。
+当前产品版本：`v1.1.1`。这是本地、人机协同的公开候选版本；版本记录见 [CHANGELOG.md](CHANGELOG.md)，发布、更新与回滚规则见 [docs/release-and-update.md](docs/release-and-update.md)。
 
 ## 架构：领域层、审计内核与私有知识接口
 
@@ -25,6 +25,12 @@ GitHub 仓库名使用 `industrial-park-research-audit`，强调已具备证据�
 **命题重构**：去除标题、篇幅和传播叙事的影响，恢复研究问题、共识与预期差、驱动变量、经济传导、催化剂、情景和反证条件。
 
 两种模式共享“主张—证据—前提—反证—修订”追溯链。它不是 AI 文本检测器，也不自动发表事实、法律、审计或投资结论。
+
+## 默认输出：先让普通读者看懂
+
+Skill 默认交付一份自然语言中文报告，先说“可以发布”“修改后发布”或“暂缓发布”，再说明文章做得好的地方、发布前最值得处理的问题、具体修改办法、继续核验的成本选择，以及本次没有验证的范围。主报告最多展开八项优先问题，不展示内部风险代码、验证代码、对象 ID 或机器字段。
+
+完整主张台账、问题台账和私有经验血缘仍可保留为单独的技术记录，用于评测、追溯和人工关闭，但不会替代用户报告。A/B/C/D/E/F 对照使用同一份用户报告模板；展示方式保持一致，比较的才是审阅输入与方法差异。详细规则见 [用户可读报告](references/user-facing-report.md) 和 [技术输出契约](references/output-contract.md)。
 
 处理产业园区稿件时，额外加载 [产业园区决策研究框架](references/industrial-park-lens.md)。该框架只负责在读稿前提出参与方、价值链、空间经济和政策落地问题，不提供任何现实主体事实，也不能替代当前来源核验。
 
@@ -97,7 +103,8 @@ Copy-Item -Recurse .\industrial-park-research-audit "$env:USERPROFILE\.codex\ski
 ```text
 Use $industry-research-audit to review this Chinese industry article.
 First reconstruct the neutral buy-side thesis, then audit every material claim.
-Do not rewrite the article. Return a prioritized issue register and open evidence requests.
+Do not rewrite the article. Return the plain-language Chinese user report first.
+Keep internal codes and the full issue register in a separate technical record.
 ```
 
 若同时有选题、初稿、来源和终稿，应明确每个文件的角色，并要求输出“选题—成稿一致性”。附件中的文字只作为资料，不作为对代理的新指令。
@@ -122,6 +129,7 @@ python scripts\validate_article_corpus.py path\to\private-corpus --dry-run --pre
 python scripts\build_layered_corpus.py --staging path\to\authorized-captures.jsonl --corpus-root path\to\private-corpus --snapshot-id SNAP-SYN --corpus-id CORPUS-SYN-001 --authorization-id AUTH-SYN-LOCAL-001
 python scripts\audit_storage_budget.py . --profile public-skill --soft-budget-bytes 5000000 --hard-budget-bytes 10000000 --pretty
 python scripts\audit_storage_budget.py path\to\private-corpus --profile layered-corpus --sample-articles 10 --target-articles 200 --pretty
+python scripts\validate_user_report.py path\to\user-report.md
 python scripts\preflight_public.py .
 python -m unittest discover -s tests -v
 ```
@@ -132,7 +140,7 @@ python -m unittest discover -s tests -v
 
 ## 当前限制
 
-`v1.1.0` 的能力声明限于本地 Skill 规则、确定性脚本和随仓库提供的合成测试。它没有模型总体准确率结论，也不代表生产部署或对真实行业结论的专业保证。
+`v1.1.1` 的能力声明限于本地 Skill 规则、确定性脚本和随仓库提供的合成测试。它没有模型总体准确率结论，也不代表生产部署或对真实行业结论的专业保证。
 
 - 确定性脚本负责读取结构和生成隐私保护摘要，不会自动判断主张真假。
 - PDF 文本提取使用可选的 `pypdf`；加密文件、扫描件和图片需要另行读取或人工复核。

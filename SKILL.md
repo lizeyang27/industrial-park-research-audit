@@ -22,7 +22,8 @@ Use industrial parks as the first domain application of a reusable research-audi
 - Read [references/knowledge-prior-workflow.md](references/knowledge-prior-workflow.md) when a review must demonstrate that authorized knowledge fixed its questions before the draft was read, or when assigning `discovery_origin: prior_knowledge`.
 - Read [references/private-experience-provenance.md](references/private-experience-provenance.md) when the user asks where a private heuristic came from, requests source/support-aware review, or needs D/F-style provenance. Keep an origin trace separate from independent support and target-claim evidence.
 - Read [references/reading-framework-workflow.md](references/reading-framework-workflow.md) when the user wants knowledge to shape the reading structure before the draft is opened. Freeze a framework before draft ingestion; never relabel a post-draft summary as pre-draft.
-- Read [references/output-contract.md](references/output-contract.md) before producing a formal review table or machine-readable result.
+- Read [references/user-facing-report.md](references/user-facing-report.md) whenever delivering a review to a user. Keep the ordinary-reader report separate from internal codes and machine records.
+- Read [references/output-contract.md](references/output-contract.md) before producing a formal technical table or machine-readable result.
 - Read [references/privacy-and-release.md](references/privacy-and-release.md) before preparing examples, repositories, or externally shareable outputs.
 - Read [references/storage-budget.md](references/storage-budget.md) when measuring the public package, estimating private corpus growth from a sample, or enforcing storage limits.
 - Read [references/evaluation.md](references/evaluation.md) when testing whether a revision improves behavior or when making claims about review quality.
@@ -79,11 +80,17 @@ If a pre-draft reading framework is requested and the draft has not been exposed
 
 ## Output
 
-Lead with one of: `ready`, `revise`, or `hold`, followed by the reason and unresolved high-priority issues.
+Use a two-layer delivery. The default artifact is a concise Chinese report for an ordinary reader; a technical ledger is a separate artifact for maintainers, evaluators, or users who explicitly request it. Never make the reader decode the audit schema before understanding the conclusion.
 
-For reasoning audit, provide a claim register and issue register with source status, reasoning gap, text detectability, discovery channel, `risk_level`, `verification_level`, closure route, required evidence, suggested action, closure condition, reopen condition, and estimated incremental verification cost. Keep workflow state, disposition, and publication effect in separate fields. For thesis reconstruction, provide the neutral research question, core thesis, consensus or baseline, differentiated view, variable tree, economic transmission, catalysts, scenarios, falsifiers, and open evidence requests.
+The default report must follow [references/user-facing-report.md](references/user-facing-report.md). Lead with `可以发布`, `修改后发布`, or `暂缓发布`, explain the reason in plain language, group overlapping findings, and show no internal `R`/`V`/`T`/`D`/`C`/`G` codes, IDs, machine field names, or English workflow states. A/B/C/D/E/F evaluation groups use the same reader-facing structure so their results can be compared without presentation differences.
 
-After the `V1` pass, add a decision gate with three explicit choices: stop with the current limitations, continue selected `V2` checks, or escalate selected `V3` checks. Token estimates are planning ranges, not billing promises; state the assumptions and never invent current model pricing.
+Keep full claim and issue registers, discovery provenance, risk and verification codes, closure routes, workflow state, and machine-readable fields in the separate technical record defined by [references/output-contract.md](references/output-contract.md). The technical record may be omitted from the response only when the workflow does not require it; it must not be silently discarded when evaluation, provenance, or later human closure depends on it.
+
+After the local pass, give the reader three plain-language choices: stop with the stated limitations, verify selected current-policy or contextual questions, or seek industry-expert review for selected mechanism questions. Show an approximate incremental token range and external or human dependencies without exposing internal verification codes. Token estimates are planning ranges, not billing promises; state the assumptions and never invent current model pricing.
+
+If authorized private experience, source support, or a reading framework materially shaped the review, disclose its role in ordinary language: what kind of question it prompted, whether it supplied evidence, and what still requires independent verification. Put private IDs, locators, and provenance fields only in the technical record.
+
+For thesis reconstruction, translate the neutral research question, core thesis, baseline, differentiated view, variables, economic transmission, catalysts, scenarios, falsifiers, and open evidence requests into reader-facing prose. Do not replace the readable report with a schema dump.
 
 When both modes apply, add an alignment section:
 
@@ -104,6 +111,7 @@ When both modes apply, add an alignment section:
 - `scripts/experience_support.py` builds and validates a private, hash-bound `ExperienceSupportBundle` for an existing prior manifest. With an explicit source root it rehashes every catalogued source file; locator reproduction and truth assessment remain separate, and every item stays non-evidentiary until verification.
 - `scripts/reading_framework.py` freezes an E/F semantic reading framework from a pre-draft topic brief, prior manifest, and optional support bundle, then binds a later draft hash. It rechecks current model-context authorization and fails closed on timing, hash, group, budget, or draft-leakage violations.
 - `scripts/score_factorial_eval.py` validates paired C/D/E/F measurements and computes support, framework, and interaction contrasts within its declared arithmetic scope. It accepts only caller-reported token and operational-cost fields, preserves missing values, and treats non-synthetic runs as private.
+- `scripts/validate_user_report.py` checks the reader-facing Markdown before delivery. It requires the fixed sections and a Chinese publication conclusion, limits the priority list to eight items, and rejects internal codes, IDs, machine fields, and English workflow states before any technical appendix.
 - `scripts/validate_article_corpus.py` validates authorized raw/derived JSONL corpora. `--dry-run` checks directory separation without opening JSONL content; full content validation requires separate authorization.
 - `scripts/build_layered_corpus.py` promotes an authorized staging capture into immutable L0 source objects and a hash-linked L1 paragraph index. It emits aggregate diagnostics only and never prints article text, titles, URLs, hashes, or absolute paths.
 - `scripts/validate_layered_corpus.py` verifies a frozen discovery hash plus L0-L6 counts, locators, lineage, evidence boundaries, routing, and approval state. Its report contains only aggregate counts and issue codes.
