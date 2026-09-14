@@ -51,7 +51,7 @@
 - **完整性**：是否只选取支持结论的片段，遗漏定义、限制条件或相反数据。
 - **可复算性**：派生数字保留公式、单位、分母、舍入方式和原始值。
 
-推荐状态：`supported`、`partially_supported`、`derived`、`conflicting`、`stale`、`missing`、`not_verifiable`。不得把网页存在等同于主张成立。
+推荐状态：`supported`、`partially_supported`、`derived`、`contradicted`、`conflicting`、`stale`、`missing`、`not_verifiable`。不得把网页存在等同于主张成立。
 
 ## 因果审计
 

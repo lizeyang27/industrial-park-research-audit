@@ -4,8 +4,8 @@
 
 ## 版本边界
 
-- `VERSION` 是公开 Skill 的产品版本，例如 `1.1.0`。
-- Git Tag 使用同一版本并加 `v` 前缀，例如 `v1.1.0`。
+- `VERSION` 是公开 Skill 的产品版本，例如 `1.2.0`。
+- Git Tag 使用同一版本并加 `v` 前缀，例如 `v1.2.0`。
 - `CHANGELOG.md` 记录用户可见能力、兼容性和边界变化。
 - Knowledge Card、任务信封、语料层和脚本方法中的 `schema_version` 或 `method_version` 独立演进。
 - 私有语料快照有自己的版本和生命周期，不写入公开仓库，也不因更新 Skill 而被覆盖。
@@ -70,7 +70,7 @@ Copy-Item -Recurse -LiteralPath $sourceSkill -Destination $installedSkill
 
 正式 Tag 前依次完成：
 
-1. 在从未容纳私有语料的 clean-room Git 仓库中，仅复制公开白名单文件。
+1. 在隐私隔离的公开 Git 仓库中只保留公开白名单文件；无论该目录过去如何使用，都以当前 tracked tree、提交历史和发布包的实际检查结果为准，不作无法证明的 clean-room 声明。
 2. 核对 `VERSION`、Tag 和 changelog 一致。
 3. 运行 Skill Creator 快速校验、全部单元测试、公开预检和容量审计。
 4. 使用仓库外的真实主体 denylist 再运行一次公开预检；denylist 本身不得提交。
@@ -79,6 +79,8 @@ Copy-Item -Recurse -LiteralPath $sourceSkill -Destination $installedSkill
 7. 为 Release 归档记录校验值，并保留前一个可用 Tag 作为回滚点。
 
 v1.1 还必须验证：C/D 引用同一 prior hash，D/F 引用同一支持快照，E/F 的框架创建时间早于草稿 receipt，且任何 `origin_trace` 都没有被标为目标文章事实证据。
+
+v1.2 还必须验证：外部安装后的默认提示路由到 `public_full_evidence`；运行回执逐项绑定公开完整工作流、公开问题先验和产业园区 lens 的真实哈希；联网可用时保存实际打开页面的轨迹；完整技术台账没有被主报告的八项展示上限截断；零至两条新观点均引用已准入证据并带适用边界和证伪条件。
 
 结构和脚本通过不代表模型判断已经获得总体准确率。发布页只能陈述实际完成的测试范围；独立盲测完成前，不得声称复刻特定专家、自动判断文章真假或已经生产部署。
 

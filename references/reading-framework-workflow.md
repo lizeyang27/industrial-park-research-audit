@@ -2,6 +2,21 @@
 
 `PriorQuestionManifest` 是一组事前固定的原子检查问题；`ReadingFrameworkManifest` 则把同一批问题组织成研究问题和类型化的定义边界、变量、参与方决策、机制链、替代解释、预期证据与证伪节点。v1.1 用后者检验“知识是否先改变了阅读结构”，而不是宣称模型权重被训练或永久改变。当前 schema 保存的是节点集合及其先验/支持引用，不包含父子边、机制边或证据矩阵单元格。
 
+## 普通单轮审阅的框架优先路径
+
+公开 Skill 的日常使用不必伪装成实验。若 topic brief 和 draft 尚未暴露，先读取公开问题先验并冻结框架，再打开草稿；此时可记录 `runtime.precommit_possible: true` 以及 `framework_timing.status: strict_precommit`，但这仍不代表使用了私有 E/F 条件。若用户第一条消息已经贴出草稿，模型不可能把它“忘掉”。仍应先暂停逐句评价，用公开先验形成一个不带 verdict 的框架，再进行系统复核，并记录：
+
+- `runtime.precommit_possible: false`；
+- `framework_timing.status: retrospective_framework_first_pass`；
+- `framework_timing.draft_seen_before_framework: true`；
+- `framework_timing.causal_claim_allowed: false`；
+- 框架用于提高覆盖与组织一致性，不用于证明严格的读稿前因果效果；
+- 对框架之外的有效发现照常保留，对框架诱发的误报照常记录。
+
+普通框架至少覆盖：谁在做什么决策、成本与收益由谁承担、项目处于哪个阶段、关键定义与口径、机制成立所需条件、至少一个替代解释、最可能改变结论的证据、反例或证伪条件。公开问题先验只能生成问题和查证方向，不能预填现实答案或替代目标事实的证据。
+
+公开完整模式的框架完成后直接进入本地发现与普通网页核验；只有付费、登录、私有资料或真人专家资源需要另行授权。严格 E/F 评测仍遵循下方的输入隔离、冻结与哈希要求。
+
 ## 允许输入
 
 生成 E 组框架时只能读取：

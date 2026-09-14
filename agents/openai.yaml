@@ -1,6 +1,6 @@
 interface:
   display_name: "产业园区研究审计"
-  short_description: "从园区研究命题到分级核验、经验溯源与人工关闭的可审计工作流"
-  default_prompt: "Use $industry-research-audit to reconstruct the decision-oriented thesis of this industrial-park draft, then audit its claims, evidence, and R/V risks."
+  short_description: "产业园区稿件的框架先行、联网核验与完整问题台账工作流"
+  default_prompt: "Use $industry-research-audit in its default public full-evidence mode. Before judging the draft, apply the public industrial-park question priors and build a framework-first reading plan. Reconstruct the decision-oriented thesis, preserve every qualifying issue in a complete technical ledger, browse authoritative primary sources to verify material current claims and counterevidence, then provide the concise Chinese reader report plus zero to two evidence-bounded new viewpoints. Record the loaded-resource hashes and actual web trace, and validate the review bundle before delivery."
 policy:
   allow_implicit_invocation: true

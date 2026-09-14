@@ -37,6 +37,23 @@ class RepositoryTests(unittest.TestCase):
         self.assertGreaterEqual(len(match.group(1)), 25)
         self.assertLessEqual(len(match.group(1)), 64)
 
+    def test_external_default_routes_to_public_full_evidence_mode(self):
+        skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+        interface = (ROOT / "agents" / "openai.yaml").read_text(encoding="utf-8")
+        for relative_path in (
+            "references/public-full-evidence-workflow.md",
+            "references/public-industrial-park-priors.md",
+            "references/industrial-park-lens.md",
+        ):
+            self.assertTrue((ROOT / relative_path).is_file())
+            self.assertIn(relative_path, skill)
+        self.assertIn("Default public full-evidence runtime", skill)
+        self.assertIn("browse by default", skill)
+        self.assertIn("full-evidence mode", interface)
+        self.assertIn("browse authoritative primary sources", interface)
+        self.assertIn("loaded-resource hashes", interface)
+        self.assertIn("actual web trace", interface)
+
     def test_public_tree_contains_no_source_binaries(self):
         blocked = {
             ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".pdf",

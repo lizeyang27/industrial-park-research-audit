@@ -1,11 +1,11 @@
 # Privacy and public-release boundary
 
-This project must be released from a clean-room copy. The public repository is a reusable research-review tool, not a repository of the private materials that inspired it.
+This project must be released from a privacy-separated public copy. The public repository is a reusable research-review tool, not a repository of the private materials that informed its requirements.
 
-## 1. Clean-room rule
+## 1. Privacy-separated publication rule
 
 - Keep the private corpus and the public repository in different directories and different Git histories.
-- Carry over only general requirements, control ideas, and independently written implementation code.
+- Publish only generalized requirements, newly expressed control ideas, and implementation code or documentation that the contributor owns or is authorized to distribute.
 - Do not copy sentences, comments, tables, screenshots, filenames, figures, URLs, layouts, branding, or document metadata from private materials.
 - Build demonstrations from zero with fictional entities, invented values, reserved example domains, and an explicit `synthetic` label.
 - Confirm that the author owns the publishable code and documentation and that employment, internship, confidentiality, database, and third-party license terms permit publication.
@@ -16,7 +16,7 @@ This project must be released from a clean-room copy. The public repository is a
 Only these categories should enter the public repository:
 
 - `SKILL.md` and interface metadata written for the public skill.
-- Independently written scripts and tests.
+- Scripts and tests that the contributor owns or is authorized to distribute.
 - General control guidance and privacy documentation.
 - Fully synthetic fixtures and expected outputs.
 - Dependency declarations, license text, provenance notes, and third-party notices.
@@ -37,7 +37,8 @@ Use explicit staging such as `git add SKILL.md scripts/...` and inspect the stag
 ## 3. Local-first data handling
 
 - Process user files locally by default.
-- Do not upload documents, extracted text, URLs, or review comments to an external model or service without the user's explicit authorization for that transfer.
+- When the user requests a research audit and network access is available, public web verification may use minimized, normalized search terms derived from public claims. Do not paste verbatim private passages into a query merely for convenience.
+- Do not upload document bytes, verbatim private extracts, non-public identities, private URLs, review comments, or source packages to an external model, search provider, or other service without the user's explicit authorization for that transfer.
 - Minimize retained data. Public-safe output should prefer anonymous material IDs, counts, categories, and human-review status over raw excerpts.
 - Keep any local path-to-ID mapping outside the public repository.
 - Treat an exception as a review signal, not as a factual or professional conclusion.

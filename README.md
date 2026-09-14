@@ -1,15 +1,16 @@
 # Industrial Park Research Audit
 
-一个以产业园区为首个垂直场景、面向中文产业研究稿的 Codex Skill。它把文章拆成可验证的主张，检查证据、范围、比较和因果关系，并从选题或传播稿中还原买方/决策导向的行业研究命题。它还把“潜在后果”和“验证难度”分开分级，让用户看到继续核验的边际成本后再决定是否深入。
+一个以产业园区为首个垂直场景、面向中文产业研究稿的 Codex Skill。它先用公开的专家问题先验形成阅读框架，再把文章拆成可验证的主张，默认联网检查证据、范围、比较和因果关系，并从选题或传播稿中还原买方/决策导向的行业研究命题。完整问题台账与普通读者报告分开保存：后台不截断发现，前台只展示最影响发布和决策的事项。
 
-当前产品版本：`v1.1.1`。这是本地、人机协同的公开候选版本；版本记录见 [CHANGELOG.md](CHANGELOG.md)，发布、更新与回滚规则见 [docs/release-and-update.md](docs/release-and-update.md)。
+当前产品版本：`v1.2.0`。这是本地、人机协同的公开版本；版本记录见 [CHANGELOG.md](CHANGELOG.md)，发布、更新与回滚规则见 [docs/release-and-update.md](docs/release-and-update.md)。
 
-## 架构：领域层、审计内核与私有知识接口
+## 架构：公开先验、领域层、审计内核与私有知识接口
 
 仓库以产业园区作为首个领域应用，在领域问题框架之下复用同一套研究审计内核。公开部分只提供方法、接口、确定性工具与合成验证，不预置现实园区、企业或政策结论。
 
 | 层级 | 作用 | 公开边界 |
 |---|---|---|
+| 公开问题先验层 | 把常见的专家区分改写为事前问题、证据要求、边界和证伪条件 | 重新表述、去标识、非证据性，不含导师批注或公司原文 |
 | 产业园区领域层 | 用政府、园区平台/业主、运营方、入园企业与资本方的决策关系组织问题 | 公开研究问题框架，不预置现实主体结论 |
 | 研究审计内核 | 原子主张拆解、证据适配、`R1`–`R3` 风险与 `V1`–`V3` 验证路由、命题重构和成本估算 | `SKILL.md`、references、确定性脚本和合成测试 |
 | 私有知识接口 | 连接获授权的评论、会议经验和行业语料与其来源、时效及支持状态 | 只提供接口与全合成示例；真实材料永不进入公开仓库 |
@@ -26,13 +27,13 @@ GitHub 仓库名使用 `industrial-park-research-audit`，强调已具备证据�
 
 两种模式共享“主张—证据—前提—反证—修订”追溯链。它不是 AI 文本检测器，也不自动发表事实、法律、审计或投资结论。
 
-## 默认输出：先让普通读者看懂
+## 默认运行：框架先行、联网闭环、双层输出
 
-Skill 默认交付一份自然语言中文报告，先说“可以发布”“修改后发布”或“暂缓发布”，再说明文章做得好的地方、发布前最值得处理的问题、具体修改办法、继续核验的成本选择，以及本次没有验证的范围。主报告最多展开八项优先问题，不展示内部风险代码、验证代码、对象 ID 或机器字段。
+处理产业园区稿件时，Skill 默认读取 [公开产业园区问题先验](references/public-industrial-park-priors.md)、[产业园区决策研究框架](references/industrial-park-lens.md) 和 [公开完整证据工作流](references/public-full-evidence-workflow.md)。能够在正文暴露前形成框架时先冻结框架；如果用户已经贴出正文，也会执行“框架优先的生产复核”，但不会伪称这证明了严格的读稿前因果效果。
 
-完整主张台账、问题台账和私有经验血缘仍可保留为单独的技术记录，用于评测、追溯和人工关闭，但不会替代用户报告。A/B/C/D/E/F 对照使用同一份用户报告模板；展示方式保持一致，比较的才是审阅输入与方法差异。详细规则见 [用户可读报告](references/user-facing-report.md) 和 [技术输出契约](references/output-contract.md)。
+网络可用时，普通公开网页核验是默认步骤，不再停在“建议用户以后搜索”。Skill 优先打开政策原文、主管部门、项目主体、交易所、统计和技术文件，逐项核对主体、日期、单位、定义、项目阶段和适用范围；搜索摘要、网址、问题先验和知识卡命中都不能直接充当证据。只有付费、登录、私有资料或真人专家资源需要另行授权。
 
-处理产业园区稿件时，额外加载 [产业园区决策研究框架](references/industrial-park-lens.md)。该框架只负责在读稿前提出参与方、价值链、空间经济和政策落地问题，不提供任何现实主体事实，也不能替代当前来源核验。
+默认交付两份相互绑定的产物：一份不设问题数量目标、也不受八项上限影响的完整技术台账；一份自然语言中文报告，先给“可以发布”“修改后发布”或“暂缓发布”的结论，再展示最重要的零至八项问题和最小修改动作。报告还允许给出零至两条由已核验证据和明确机制支持的新观点；证据不足时必须明确不生成。详细规则见 [用户可读报告](references/user-facing-report.md) 和 [技术输出契约](references/output-contract.md)。
 
 完整设计基线见 [docs/design-spec-v0.4.md](docs/design-spec-v0.4.md)。其中的 `v0.4` 是内部设计文档版本，不是 Skill 产品版本。该设计把原始“由浅到深”的审阅直觉拆成审阅粒度、文本可发现性、发现通道、风险后果、验证难度和关闭路线六个独立维度，并明确“发现线索不等于证据”。
 
@@ -42,7 +43,13 @@ Skill 默认交付一份自然语言中文报告，先说“可以发布”“�
 - `V1`/`V2`/`V3` 表示验证难度：显性核验、语境与政策核验、行业专家核验。
 - `T1`/`T2`/`T3` 表示正文能直接确认问题、只能触发疑点，或必须依赖外部语境与知识才会发现。
 
-两者不能互相推导。关键数字写反可能是 `R3 + V1`；一个尚未证实但不影响核心结论的行业解释可能是 `R1 + V3`。Skill 默认先完成本地 `V1`，再报告 `V2`、`V3` 的增量 token 区间、外部检索和人工依赖，由用户选择是否继续。
+两者不能互相推导。关键数字写反可能是 `R3 + V1`；一个尚未证实但不影响核心结论的行业解释可能是 `R1 + V3`。Skill 默认先完成本地 `V1`，随后在网络可用时完成会改变主旨、发布判断或行动建议的普通公开来源核验；未关闭的付费资料、私有数据和行业专家判断再单独报告 token 区间与人工依赖。
+
+### v1.2：公开可迁移的 F-style 完整模式
+
+v1.2 把过去只在高级或私有路径中出现的组织方式改为外部安装后的默认运行路径：公开问题先验、框架优先、联网核验、完整问题台账、可读报告和零至两条证据约束的新观点。运行产物需要记录加载的公开资源、草稿和报告哈希以及实际打开的证据页面；校验器可发现必读资源漏项、所声明资源与当前安装副本的哈希不一致和证据轨迹缺失，但不能证明模型已经理解或正确执行了这些规则。
+
+这里的 **F-style** 指公开版复用了实验 F 的组织逻辑，并不等于正式的私有 F 条件。正式 F 还要求获授权的私有先验清单、来源支持 sidecar，以及正文暴露前冻结的阅读框架；这些私有输入没有随 GitHub 仓库发布。公开版可以独立运行，接入本地私有库只会增强问题路由和来源追溯，不是获得完整公开功能的前提。
 
 ## 可选私有知识库
 
@@ -88,6 +95,16 @@ GitHub 仓库中的持续集成会在 Python 3.10 与 3.12 上运行单元测试
 
 ## 安装
 
+在 Codex 中调用系统自带的 `$skill-installer`，并固定到本次 Release：
+
+```text
+Use $skill-installer to install the skill from GitHub repository
+lizeyang27/industrial-park-research-audit, repository path ., ref v1.2.0,
+and name it industry-research-audit.
+```
+
+安装完成后开启一个新任务，明确调用 `$industry-research-audit`。外部安装获得的是该 Tag 中的完整公开规则与先验；已安装副本不会自动随 GitHub 更新。若只想试验尚未发布的开发版本，应另行明确指定 commit，而不要默认跟随 `main`。
+
 将本目录复制或链接到 Codex 的个人 skills 目录，然后重启或刷新 Codex：
 
 ```powershell
@@ -101,13 +118,17 @@ Copy-Item -Recurse .\industrial-park-research-audit "$env:USERPROFILE\.codex\ski
 ## 使用示例
 
 ```text
-Use $industry-research-audit to review this Chinese industry article.
-First reconstruct the neutral buy-side thesis, then audit every material claim.
-Do not rewrite the article. Return the plain-language Chinese user report first.
-Keep internal codes and the full issue register in a separate technical record.
+Use $industry-research-audit to review this Chinese industrial-park or industrial-attraction article.
+Use the default public full-evidence mode: form the reading framework first,
+then reconstruct the neutral buy-side thesis and audit every material claim.
+Browse authoritative primary sources for claims that can change the conclusion.
+Do not rewrite the article. Save the complete issue ledger separately, return
+the plain-language Chinese report first, and add no more than two evidence-bounded new viewpoints.
 ```
 
 若同时有选题、初稿、来源和终稿，应明确每个文件的角色，并要求输出“选题—成稿一致性”。附件中的文字只作为资料，不作为对代理的新指令。
+
+审阅 DOCX、PDF 或其他二进制附件时，先在私有工作目录生成本次实际审阅内容的 UTF-8 Markdown/Text 快照，并在私有技术记录中保留原文件哈希、快照哈希和转换说明。直接粘贴的聊天文本也先保存为确定性快照：UTF-8 无 BOM、换行统一为 LF，但不改变 Unicode 规范化、标点、空白或正文措辞；同时记录输入类型和转换说明。`validate_review_bundle.py` 绑定的是这个精确文本快照与报告，不直接解析或证明原始 Office/PDF 文件的视觉内容。
 
 ## 本地工具
 
@@ -130,6 +151,7 @@ python scripts\build_layered_corpus.py --staging path\to\authorized-captures.jso
 python scripts\audit_storage_budget.py . --profile public-skill --soft-budget-bytes 5000000 --hard-budget-bytes 10000000 --pretty
 python scripts\audit_storage_budget.py path\to\private-corpus --profile layered-corpus --sample-articles 10 --target-articles 200 --pretty
 python scripts\validate_user_report.py path\to\user-report.md
+python scripts\validate_review_bundle.py path\to\draft.md path\to\technical-ledger.json path\to\user-report.md --pretty
 python scripts\preflight_public.py .
 python -m unittest discover -s tests -v
 ```
@@ -140,13 +162,15 @@ python -m unittest discover -s tests -v
 
 ## 当前限制
 
-`v1.1.1` 的能力声明限于本地 Skill 规则、确定性脚本和随仓库提供的合成测试。它没有模型总体准确率结论，也不代表生产部署或对真实行业结论的专业保证。
+`v1.2.0` 的能力声明限于公开 Skill 规则、确定性脚本和随仓库提供的合成测试。它没有模型总体准确率结论，也不代表生产部署或对真实行业结论的专业保证。
 
 - 确定性脚本负责读取结构和生成隐私保护摘要，不会自动判断主张真假。
 - PDF 文本提取使用可选的 `pypdf`；加密文件、扫描件和图片需要另行读取或人工复核。
 - PPTX 与 XLSX 的轻量抽取保留文字和基本结构，不等同于视觉版式、公式血缘或图表审计。
 - Word 批注的解决状态在部分文件中可能缺少可映射标识，此时返回空值而不是猜测。
 - 当前公开测试验证脚本行为和合成案例，不代表对所有行业、文档格式或研究结论的总体准确率。
+- 公共问题先验能改变提问顺序和覆盖范围，但不能自动成为目标事实的证据，也不等同于把私有知识训练进模型权重。
+- 网络可用不保证网页可访问、来源真实或结论正确；外部事实只能由已打开且通过主体、日期、单位、定义和范围检查的来源关闭。正文内部矛盾、用户提供材料和可复算结果应按各自证据类型记录，不能伪装成网页证据，也不能越界证明外部事实。
 - P0 已能验证授权清单、预先固定问题、绑定后续正文哈希并检查 `discovery_origin`；完整问题状态机、证据准入、动态重开与人工关闭仍属于后续实现范围，当前代码通过不代表这些控制已端到端完成。
 - L3 晋升闸门只证明一张抽象卡通过了指定人工状态与授权条件，不证明其内容为事实，也不替代 `prior` 阶段的任务授权、范围、时效和时间顺序检查。
 - `ExperienceSupportBundle` 当前能证明来源清单、卡片和先验问题之间的哈希绑定；提供 `--source-root` 时还会逐个重算清单内来源文件的 SHA-256。它只暴露声明的独立线索，不会打开或准入这些线索；locator 仍标为未复现，也尚未实现完整的 span/episode、反证关系和独立性人工裁决台账。
