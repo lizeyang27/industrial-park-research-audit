@@ -43,8 +43,14 @@ SourceAsset -> SourceSpan -> ExperienceEpisode -> KnowledgeCard
 
 D 与 C 使用字节完全相同的 `PriorQuestionManifest`。D 只多读一个 hash-bound 支持 sidecar，用于理解问题的来历、适用边界和仍缺的验证。F 与 E 同理。
 
-当前 v1.1.0 的 `ExperienceSupportBundle` 是保守的第一步：它包括问题 ID、经验卡 ID、来源 ID/类型/声明哈希、locator、转化链、声明的独立来源线索、授权快照、内容预算和 bundle hash。未提供 `--source-root` 时，来源状态只能是 `manifest_declared_not_verified`；提供后会逐个读取清单中的本地来源并复算 SHA-256，全部通过才是 `byte_hash_verified`。这仍不复现 locator，也不判断来源内容正确。即使存在独立来源 ID，也只标为 `declared_not_verified`，不会成为事实证据。
+v1.1.0 引入的 `ExperienceSupportBundle` 是保守的第一步：它包括问题 ID、经验卡 ID、来源 ID/类型/声明哈希、locator、转化链、声明的独立来源线索、授权快照、内容预算和 bundle hash。未提供 `--source-root` 时，来源状态只能是 `manifest_declared_not_verified`；提供后会逐个读取清单中的本地来源并复算 SHA-256，全部通过才是 `byte_hash_verified`。这仍不复现 locator，也不判断来源内容正确。即使存在独立来源 ID，也只标为 `declared_not_verified`，不会成为事实证据。
 
 更完整的 `SourceSpan -> ExperienceEpisode -> SupportAssessment` 台账仍是后续私有层工作：它应增加支持、反证和边界关系、独立性分组、locator 人工复核与证据准入状态。不得把当前 bundle 描述成已经完成这些人工裁决。
 
 若没有独立线索，保留 `origin_trace_only` 和 `none_declared`；有线索但尚未完成独立核验时，使用 `origin_trace_with_declared_independent_leads` 和 `declared_not_verified`。零独立支持是有效结果，不是需要补写的空白。
+
+## 与单次审阅的用户材料区分
+
+`ExperienceSupportBundle --source-root` 重算的是私有经验来源清单中的字节，用于证明 sidecar 指向哪一版来源；它不会让这些来源自动成为目标文章证据。单次公开全证据审阅若要把用户提供的文件记录为 `supplied_source`，还必须在该次技术台账中建立 `supplied_inputs`；其中 `input_id` 必须是 1–128 位 ASCII，首位为字母或数字，后续仅允许字母、数字、点、下划线或连字符，因此路径与 URI 语法均拒绝。运行 `validate_review_bundle.py` 时再为每个 ID 传入 `--supplied-input ID=PATH`。校验器重新读取真实文件字节并核对清单哈希，缺失或不匹配即失败。直接或经计算血缘使用该材料的验证动作与关闭决定，还不得早于其带时区的 `captured_at`。
+
+两种重哈希都只建立字节身份；材料采集时间、动作时间和关闭时间也只是调用方台账记录。它们不证明内容真实、真实采集过程、locator 已复现、材料合法取得、来源相互独立或该段语义足以支持目标主张。私有经验仍只能帮助提出问题和设计验证；若要支撑目标文章的外部事实，必须另建当次 `EvidenceItem`，完成范围适配并接受人工复核。该证据还必须用非空 `fit_target_refs` 绑定本次真实存在的具体主张或观点；Knowledge Card、支持 sidecar 或没有明确目标的私有候选不能直接放入 `evidence_records`，只能作为 `discovery_hits` 或取证路线。
